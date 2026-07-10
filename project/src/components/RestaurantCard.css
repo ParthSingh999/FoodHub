@@ -1,0 +1,16 @@
+.rest-card { display: block; background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform var(--transition-slow), box-shadow var(--transition-slow), border-color var(--transition); position: relative; }
+.rest-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.rest-card-media { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--surface-2); }
+.rest-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-slow); }
+.rest-card:hover .rest-card-media img { transform: scale(1.06); }
+.rest-promoted { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.65); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; padding: 4px 9px; border-radius: 4px; backdrop-filter: blur(4px); }
+.rest-fav { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.92); color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: transform var(--transition); backdrop-filter: blur(4px); }
+.rest-fav:hover { transform: scale(1.12); }
+.rest-fav.active { color: var(--primary); background: #fff; }
+.rest-offer { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: #fff; font-size: 0.78rem; font-weight: 600; padding: 18px 12px 10px; }
+.rest-card-body { padding: 14px 16px 18px; }
+.rest-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rest-cuisine { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rest-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+.rest-dot { color: var(--text-subtle); }
+.rest-loc { font-size: 0.82rem; color: var(--text-subtle); border-top: 1px dashed var(--border); padding-top: 10px; }

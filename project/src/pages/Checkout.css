@@ -1,0 +1,25 @@
+.checkout-page { padding: 30px 20px 60px; }
+.checkout-title { font-size: 1.9rem; margin-bottom: 24px; }
+.checkout-layout { display: grid; grid-template-columns: 1fr 360px; gap: 30px; align-items: start; }
+.checkout-main { display: flex; flex-direction: column; gap: 20px; }
+.checkout-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); }
+.checkout-card h3 { font-size: 1.15rem; margin-bottom: 18px; }
+.checkout-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field input.err, .field select.err, .field textarea.err { border-color: var(--error); }
+.pay-options { display: flex; flex-direction: column; gap: 12px; }
+.pay-opt { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--border-strong); border-radius: var(--radius); cursor: pointer; font-weight: 500; transition: all var(--transition); }
+.pay-opt:hover { border-color: var(--primary); }
+.pay-opt.active { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
+.pay-opt input { accent-color: var(--primary); }
+.pay-icon { font-size: 1.2rem; }
+.checkout-summary { position: sticky; top: calc(var(--header-h) + 16px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; box-shadow: var(--shadow); }
+.checkout-summary h3 { font-size: 1.1rem; margin-bottom: 16px; }
+.summary-items { display: flex; flex-direction: column; gap: 10px; max-height: 240px; overflow-y: auto; }
+.summary-item { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; }
+.summary-qty { color: var(--primary); font-weight: 700; flex-shrink: 0; }
+.summary-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.summary-price { font-weight: 600; flex-shrink: 0; }
+.bill-row { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); padding: 5px 0; }
+.bill-total { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.bill-divider { height: 1px; background: var(--border); margin: 8px 0; }
+@media (max-width: 768px) { .checkout-layout { grid-template-columns: 1fr; } .checkout-summary { position: static; } }

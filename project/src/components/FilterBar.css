@@ -1,0 +1,22 @@
+.filterbar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow-sm); position: sticky; top: calc(var(--header-h) + 16px); align-self: start; }
+.filterbar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.filterbar-head h3 { font-size: 1.1rem; }
+.filter-clear { color: var(--primary); font-size: 0.82rem; font-weight: 600; }
+.filter-clear:hover { text-decoration: underline; }
+.filter-toggle { width: 100%; padding: 12px; background: var(--primary); color: #fff; border-radius: var(--radius); font-weight: 600; margin-bottom: 8px; display: none; }
+.filter-group { border: none; border-top: 1px solid var(--border); padding: 16px 0; }
+.filter-group legend { font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; padding: 0; }
+.filter-opt { display: flex; align-items: center; gap: 9px; padding: 6px 0; font-size: 0.88rem; color: var(--text-muted); cursor: pointer; }
+.filter-opt input { accent-color: var(--primary); width: 16px; height: 16px; }
+.filter-opt:hover { color: var(--text); }
+.filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 6px 12px; border-radius: var(--radius-pill); background: var(--surface-2); color: var(--text-muted); font-size: 0.8rem; font-weight: 500; transition: all var(--transition); border: 1px solid transparent; }
+.chip:hover { border-color: var(--primary); color: var(--primary); }
+.chip.active { background: var(--primary); color: #fff; }
+.filter-group select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); }
+@media (max-width: 768px) {
+  .filterbar { position: static; padding: 14px; }
+  .filter-toggle { display: block; }
+  .filterbar-body { display: none; }
+  .filterbar-body.open { display: block; }
+}

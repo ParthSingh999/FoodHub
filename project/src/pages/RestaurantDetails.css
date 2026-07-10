@@ -1,0 +1,21 @@
+.rd-page { padding-bottom: 60px; }
+.rd-banner { position: relative; height: 320px; overflow: hidden; color: #fff; }
+.rd-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rd-banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%); }
+.rd-banner-content { position: relative; z-index: 1; padding-top: 60px; max-width: var(--maxw); }
+.rd-back { display: inline-block; color: rgba(255,255,255,0.9); font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; background: rgba(0,0,0,0.35); padding: 6px 14px; border-radius: var(--radius-pill); backdrop-filter: blur(6px); transition: background var(--transition); }
+.rd-back:hover { background: rgba(0,0,0,0.55); }
+.rd-banner-content h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 6px; }
+.rd-cuisine { font-size: 1.05rem; color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.rd-banner-meta { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; flex-wrap: wrap; }
+.rd-fav { position: absolute; top: 22px; right: 24px; z-index: 2; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.95); color: var(--primary); font-size: 1.4rem; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); transition: transform var(--transition); }
+.rd-fav:hover { transform: scale(1.12); }
+.rd-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: -36px; position: relative; z-index: 2; }
+.rd-strip-card { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-md); }
+.rd-strip-card strong { display: block; font-size: 0.85rem; margin-bottom: 2px; }
+.rd-strip-card p { font-size: 0.82rem; color: var(--text-muted); }
+.rd-strip-icon { font-size: 1.4rem; }
+.rd-strip-offer { background: var(--primary-50); border-color: var(--primary-100); }
+.rd-strip-offer strong { color: var(--primary); }
+@media (max-width: 768px) { .rd-banner { height: 260px; } .rd-banner-content h1 { font-size: 1.9rem; } .rd-strip { grid-template-columns: 1fr 1fr; margin-top: -20px; } }
+@media (max-width: 480px) { .rd-strip { grid-template-columns: 1fr; } }

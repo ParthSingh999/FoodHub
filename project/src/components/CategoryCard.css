@@ -1,0 +1,5 @@
+.cat-card { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 22px 12px; background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); }
+.cat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: transparent; }
+.cat-emoji { width: 78px; height: 78px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.1rem; transition: transform var(--transition-slow); }
+.cat-card:hover .cat-emoji { transform: scale(1.1) rotate(-5deg); }
+.cat-name { font-size: 0.9rem; font-weight: 600; text-align: center; }

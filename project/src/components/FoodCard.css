@@ -1,0 +1,22 @@
+.food-card { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); animation: fadeUp 0.4s ease both; }
+.food-card:last-child { border-bottom: none; }
+.food-card-main { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.veg-mark { width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid; display: inline-flex; align-items: center; justify-content: center; font-size: 0.6rem; line-height: 1; }
+.veg-mark.veg { color: var(--success); border-color: var(--success); }
+.veg-mark.nonveg { color: var(--error); border-color: var(--error); }
+.food-name { font-size: 1.05rem; font-weight: 700; }
+.food-desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.food-price { font-weight: 700; font-size: 1rem; margin-top: 2px; }
+.food-card-media { position: relative; flex-shrink: 0; width: 150px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.food-card-media img { width: 150px; height: 120px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.qty-stepper { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1.5px solid var(--primary); color: var(--primary); border-radius: var(--radius-pill); padding: 4px 12px; font-weight: 700; box-shadow: var(--shadow-brand); }
+.qty-stepper.in-cart { background: var(--primary); color: #fff; }
+.qty-stepper button { font-size: 1.2rem; font-weight: 700; color: inherit; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background var(--transition); }
+.qty-stepper.in-cart button:hover { background: rgba(255,255,255,0.25); }
+.qty-stepper:not(.in-cart) button:hover { background: var(--primary-50); }
+.food-add { width: 150px; }
+@media (max-width: 480px) {
+  .food-card-media { width: 120px; }
+  .food-card-media img, .food-add { width: 120px; }
+  .food-card-media img { height: 100px; }
+}

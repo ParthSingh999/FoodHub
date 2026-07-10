@@ -1,0 +1,9 @@
+.rest-menu { margin-top: 36px; }
+.rest-menu-title { font-size: 1.5rem; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2px solid var(--border); }
+.menu-section { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow-sm); }
+.menu-section-head { width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 18px; font-size: 1.05rem; font-weight: 700; text-align: left; background: var(--surface); transition: background var(--transition); }
+.menu-section-head:hover { background: var(--bg-alt); }
+.menu-count { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
+.menu-chevron { margin-left: auto; font-size: 1.4rem; color: var(--text-muted); transition: transform var(--transition); }
+.menu-chevron.open { transform: rotate(180deg); }
+.menu-items { padding: 6px 18px 18px; }

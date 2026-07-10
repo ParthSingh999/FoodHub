@@ -1,0 +1,12 @@
+.loader-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 80px 20px; }
+.loader-plate { position: relative; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; }
+.loader-spinner { width: 70px; height: 70px; border: 6px solid var(--surface-2); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.9s linear infinite; }
+.loader-fork, .loader-knife { position: absolute; width: 6px; height: 28px; background: var(--primary); border-radius: 3px; opacity: 0.85; }
+.loader-fork { left: 12px; top: 8px; }
+.loader-knife { right: 12px; top: 8px; }
+.loader-label { color: var(--text-muted); font-weight: 500; font-size: 0.95rem; animation: pulse 1.4s ease infinite; }
+.card-skeleton { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 12px; box-shadow: var(--shadow-sm); }
+.skel { background: linear-gradient(90deg, var(--surface-2) 25%, var(--border) 50%, var(--surface-2) 75%); background-size: 800px 100%; animation: shimmer 1.4s infinite linear; border-radius: 8px; }
+.skel-img { width: 100%; height: 160px; margin-bottom: 14px; }
+.skel-line { height: 12px; margin-bottom: 10px; }
+.w-80 { width: 80%; } .w-50 { width: 50%; } .w-40 { width: 40%; }

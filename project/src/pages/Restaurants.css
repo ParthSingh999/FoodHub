@@ -1,0 +1,12 @@
+.restaurants-page { padding: 30px 20px 60px; }
+.restaurants-head { margin-bottom: 28px; }
+.restaurants-head h1 { font-size: 2rem; margin-bottom: 6px; }
+.restaurants-head p { color: var(--text-muted); margin-bottom: 20px; }
+.restaurants-search { max-width: 560px; }
+.restaurants-layout { display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: start; }
+.restaurants-results { min-width: 0; }
+@media (max-width: 768px) { .restaurants-layout { grid-template-columns: 1fr; } }
+.empty-state { text-align: center; padding: 60px 20px; background: var(--surface); border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); }
+.empty-emoji { font-size: 3rem; display: block; margin-bottom: 14px; }
+.empty-state h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.empty-state p { color: var(--text-muted); margin-bottom: 18px; }

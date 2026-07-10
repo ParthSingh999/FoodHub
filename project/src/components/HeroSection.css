@@ -1,0 +1,13 @@
+.hero { position: relative; min-height: 560px; display: flex; align-items: center; color: #fff; background-image: url("https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1600"); background-size: cover; background-position: center; overflow: hidden; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(105deg, rgba(20,10,10,0.92) 0%, rgba(28,12,12,0.78) 40%, rgba(226,55,68,0.45) 100%); }
+.hero-content { position: relative; z-index: 1; padding: 80px 20px; max-width: var(--maxw); }
+.hero-eyebrow { display: inline-block; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(8px); padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 18px; animation: fadeUp 0.5s ease both; }
+.hero-title { font-size: 3.4rem; font-weight: 800; line-height: 1.1; margin-bottom: 18px; max-width: 620px; animation: fadeUp 0.6s ease both; }
+.hero-accent { color: #ffcf33; }
+.hero-sub { font-size: 1.08rem; color: rgba(255,255,255,0.88); max-width: 520px; margin-bottom: 30px; animation: fadeUp 0.7s ease both; }
+.hero-stats { display: flex; gap: 40px; margin-top: 40px; animation: fadeUp 0.9s ease both; }
+.hero-stats div { display: flex; flex-direction: column; }
+.hero-stats strong { font-size: 1.6rem; font-weight: 800; }
+.hero-stats span { font-size: 0.85rem; color: rgba(255,255,255,0.78); }
+@media (max-width: 768px) { .hero { min-height: 480px; } .hero-content { padding: 56px 20px; } .hero-title { font-size: 2.2rem; } .hero-sub { font-size: 0.98rem; } .hero-stats { gap: 24px; } .hero-stats strong { font-size: 1.3rem; } }
+@media (max-width: 480px) { .hero { min-height: 440px; } .hero-title { font-size: 1.8rem; } .hero-stats { gap: 18px; } }
