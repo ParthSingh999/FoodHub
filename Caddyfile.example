@@ -1,0 +1,14 @@
+# Caddyfile example with automatic HTTPS and reverse proxy
+# Replace `example.com` with your domain and adjust backends as needed
+
+example.com {
+    encode gzip
+    root * /srv
+    file_server
+
+    # Proxy API requests to backend running on port 3000
+    reverse_proxy /api/* localhost:3000
+}
+
+# If you want to serve on a non-root path or a subdomain, adapt accordingly.
+# Caddy will obtain certificates automatically for public hostnames.
