@@ -6,8 +6,8 @@ example.com {
     root * /srv
     file_server
 
-    # Proxy API requests to backend running on port 3000
-    reverse_proxy /api/* localhost:3000
+    # Proxy API requests to backend running on port 8000
+    reverse_proxy /api/* localhost:8000
 }
 
 # If you want to serve on a non-root path or a subdomain, adapt accordingly.
