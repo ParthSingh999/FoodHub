@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
-const API_BASE = "http://localhost:8000/api/users";
+const API_BASE = "https://foodhub-production-9792.up.railway.app/api/users";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
