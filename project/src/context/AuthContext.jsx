@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
 
   const signup = async ({ username, email, password }) => {
     try {
-      const response = await fetch(`${API_BASE}/create`, {
+      const response = await fetch(`${API_BASE}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
@@ -27,8 +27,10 @@ export function AuthProvider({ children }) {
         return { ok: false, error: data.error || "Signup failed." };
       }
 
-      const { password: _pw, ...safe } = data;
-      setUser(safe);
+      // Backend now returns { user, token }
+      const { user: safeUser, token } = data;
+      if (token) localStorage.setItem("fh_token", token);
+      setUser(safeUser || data);
       return { ok: true };
     } catch (error) {
       return { ok: false, error: "Unable to reach the server. Please try again." };
@@ -48,15 +50,20 @@ export function AuthProvider({ children }) {
         return { ok: false, error: data.error || "Invalid email or password." };
       }
 
-      const { password: _pw, ...safe } = data;
-      setUser(safe);
+      // Backend now returns { user, token }
+      const { user: safeUser, token } = data;
+      if (token) localStorage.setItem("fh_token", token);
+      setUser(safeUser || data);
       return { ok: true };
     } catch (error) {
       return { ok: false, error: "Unable to reach the server. Please try again." };
     }
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("fh_token");
+  };
 
   return <AuthContext.Provider value={{ user, signup, login, logout }}>{children}</AuthContext.Provider>;
 }

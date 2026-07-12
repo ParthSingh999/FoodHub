@@ -3,8 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../context/ToastContext.jsx";
-import { formatPrice, saveOrder, saveAddress, getAddress } from "../utils/helpers.js";
+import { formatPrice, saveAddress, getAddress } from "../utils/helpers.js";
 import "./Checkout.css";
+
+const API_BASE = "https://foodhub-production-9792.up.railway.app/api";
 
 export default function Checkout() {
   const { items, subtotal, deliveryFee, tax, total, clearCart } = useCart();
@@ -17,7 +19,7 @@ export default function Checkout() {
     name: user?.username || "", phone: "",
     line1: savedAddr?.line1 || "", city: savedAddr?.city || "", zip: savedAddr?.zip || "", notes: "",
   });
-  const [payment, setPayment] = useState("card");
+  const [payment, setPayment] = useState("cod");
   const [errors, setErrors] = useState({});
   const [placing, setPlacing] = useState(false);
 
@@ -34,33 +36,59 @@ export default function Checkout() {
     return Object.keys(e).length === 0;
   };
 
-  const handlePlace = (e) => {
+  const handlePlace = async (e) => {
     e.preventDefault();
     if (!validate()) { toast("Please fix the highlighted fields", "error"); return; }
+
     setPlacing(true);
     saveAddress({ line1: form.line1, city: form.city, zip: form.zip });
-    setTimeout(() => {
-      const order = {
-        id: "ORD" + Date.now(),
-        date: new Date().toISOString(),
-        customerName: form.name,
-        customerEmail: user?.email || "",
-        phone: form.phone,
-        items: items.map((i) => ({ name: i.name, qty: i.qty, price: i.price, image: i.image })),
-        subtotal,
-        deliveryFee,
-        tax,
-        total,
-        payment,
-        address: { line1: form.line1, city: form.city, zip: form.zip, notes: form.notes },
-        status: "Delivered",
+
+    try {
+      const token = localStorage.getItem("fh_token") || "";
+      const address = `${form.line1}, ${form.city} ${form.zip}${form.notes ? " – " + form.notes : ""}`;
+      const paymentMode = payment === "cod" ? "COD" : "ONLINE";
+
+      // Build order payload with productId for each cart item
+      const orderPayload = {
+        address,
+        paymentMode,
+        deliveryFee: 40,
+        discount: 0,
+        tip: 0,
+        items: items.map((i) => ({
+          productId: i.productId || i.id,   // use productId from DB if available, fallback to cart id
+          quantity: i.qty,
+          name: i.name,
+          price: i.price,
+        })),
       };
-      saveOrder(order);
+
+      const response = await fetch(`${API_BASE}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(orderPayload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // If products not in DB yet (e.g. demo items), show helpful message
+        toast(data.error || "Order failed. Please try again.", "error");
+        setPlacing(false);
+        return;
+      }
+
       clearCart();
       toast("Order placed successfully!", "success");
-      setPlacing(false);
       navigate("/profile");
-    }, 900);
+    } catch (err) {
+      toast("Could not reach server. Please check your connection.", "error");
+    } finally {
+      setPlacing(false);
+    }
   };
 
   if (items.length === 0) {
@@ -82,7 +110,7 @@ export default function Checkout() {
           <section className="checkout-card">
             <h3>Delivery address</h3>
             <div className="field"><label>Full name</label><input value={form.name} onChange={set("name")} className={errors.name ? "err" : ""} />{errors.name && <p className="error-text">{errors.name}</p>}</div>
-            <div className="field"><label>Phone number</label><input value={form.phone} onChange={set("phone")} placeholder="+1 555 123 4567" className={errors.phone ? "err" : ""} />{errors.phone && <p className="error-text">{errors.phone}</p>}</div>
+            <div className="field"><label>Phone number</label><input value={form.phone} onChange={set("phone")} placeholder="+91 98765 43210" className={errors.phone ? "err" : ""} />{errors.phone && <p className="error-text">{errors.phone}</p>}</div>
             <div className="field"><label>Street address</label><input value={form.line1} onChange={set("line1")} placeholder="123 Main Street, Apt 4B" className={errors.line1 ? "err" : ""} />{errors.line1 && <p className="error-text">{errors.line1}</p>}</div>
             <div className="checkout-row">
               <div className="field"><label>City</label><input value={form.city} onChange={set("city")} className={errors.city ? "err" : ""} />{errors.city && <p className="error-text">{errors.city}</p>}</div>
@@ -94,7 +122,7 @@ export default function Checkout() {
           <section className="checkout-card">
             <h3>Payment method</h3>
             <div className="pay-options">
-              {[{id:"card",label:"Credit / Debit card",icon:"💳"},{id:"upi",label:"UPI / Wallet",icon:"📱"},{id:"cod",label:"Cash on delivery",icon:"💵"}].map((p) => (
+              {[{id:"cod",label:"Cash on delivery",icon:"💵"},{id:"upi",label:"UPI / Wallet",icon:"📱"},{id:"card",label:"Credit / Debit card",icon:"💳"}].map((p) => (
                 <label key={p.id} className={`pay-opt ${payment === p.id ? "active" : ""}`}>
                   <input type="radio" name="payment" checked={payment === p.id} onChange={() => setPayment(p.id)} />
                   <span className="pay-icon">{p.icon}</span><span>{p.label}</span>
