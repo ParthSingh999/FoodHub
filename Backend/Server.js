@@ -1,49 +1,56 @@
-const cors = require('cors');   
+require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const db = require('./Confiq/db');
-const userRoutes = require('./Routes/UserRoutes');
 
+// ── Load all models so Sequelize registers them before sync ──
+require('./Models/UserModel');
+require('./Models/VendorModel');
+require('./Models/CategoryModel');
+require('./Models/ProductModel');
+require('./Models/OrderModel');
+require('./Models/OrderItemModel');
 
-const app = express();
+// ── Routes ───────────────────────────────────────────────────
+const userRoutes     = require('./Routes/userRoutes');
+const vendorRoutes   = require('./Routes/vendorRoutes');
+const productRoutes  = require('./Routes/productRoutes');
+const categoryRoutes = require('./Routes/categoryRoutes');
+const orderRoutes    = require('./Routes/orderRoutes');
+
+const app  = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users', userRoutes);
+app.use('/api/users',      userRoutes);
+app.use('/api/vendors',    vendorRoutes);
+app.use('/api/products',   productRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/orders',     orderRoutes);
 
-// Lightweight health endpoints for remote checks
-app.get('/', (req, res) => {
-    res.send('Backend is up');
-});
+// Health endpoints
+app.get('/', (req, res) => res.send('Backend is up'));
+app.get('/api/health', (req, res) =>
+    res.json({ status: 'ok', port: PORT, db: !!process.env.DATABASE_URL })
+);
 
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'ok',
-        port: PORT,
-        db_env: !!process.env.DATABASE_URL || !!process.env.MYSQL_URL
-    });
-});
-
-
-// Authenticate DB first, then start server so the app only listens when DB is reachable
+// Connect → sync all tables → start listening
 db.authenticate()
     .then(async () => {
-        console.log('Database connected successfully');
+        console.log('✅ Database connected');
         try {
-            await db.sync();
+            await db.sync({ alter: true }); // safe update, no data loss
+            console.log('✅ All tables synced');
         } catch (syncErr) {
-            console.error('DB sync error:', syncErr);
+            console.error('⚠️  DB sync error:', syncErr.message);
         }
-
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
+        app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
     })
     .catch((err) => {
-        console.error('Unable to connect to the database:', err);
-        // still start server so health checks can report, but warn
-        app.listen(PORT, () => {
-            console.log(`Server started on port ${PORT} but DB connection failed`);
-        });
-    });
+        console.error('❌ DB connection failed:', err.message);
+        app.listen(PORT, () =>
+            console.log(`⚠️  Server on port ${PORT} — DB unavailable`)
+        );
+    });
