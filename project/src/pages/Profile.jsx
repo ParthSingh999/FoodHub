@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../context/ToastContext.jsx";
-import { getOrders, formatPrice } from "../utils/helpers.js";
+import { formatPrice } from "../utils/helpers.js";
 import "./Profile.css";
 
 export default function Profile() {
   const { user, logout } = useAuth();
   const toast = useToast();
   const navigate = useNavigate();
-  const [orders, setOrders] = useState([]);
+  const [orders] = useState([]);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
-
-  useEffect(() => { setOrders(getOrders()); }, []);
 
   const handleLogout = () => { logout(); toast("Logged out successfully", "info"); navigate("/"); };
   const joined = new Date(user?.joinedOn || Date.now()).toLocaleDateString(undefined, { year: "numeric", month: "long" });

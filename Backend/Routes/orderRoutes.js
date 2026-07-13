@@ -4,20 +4,21 @@ const {
   ConfirmPayment,
   GetMyOrders,
   GetVendorOrders,
-  UpdateOrderStatus,
+  GetAllOrders,
+  GetOrderById,
+  UpdateOrder,
+  DeleteOrder,
 } = require('../Controller/OrderController');
-const { authMiddleware } = require('../Midleware/AuthMilderware');
-const { vendorAuthMiddleware } = require('../Midleware/VendorAuthMiddleware');
 
 const router = express.Router();
 
-// User routes
-router.post('/', authMiddleware, CreateOrder);                         // place order
-router.get('/my', authMiddleware, GetMyOrders);                       // user's order history
-router.post('/payment/confirm', authMiddleware, ConfirmPayment);      // confirm Razorpay payment
-
-// Vendor routes
-router.get('/vendor', vendorAuthMiddleware, GetVendorOrders);                             // list orders for vendor
-router.patch('/:orderNumber/status', vendorAuthMiddleware, UpdateOrderStatus);            // update order status
+router.post('/', CreateOrder);
+router.post('/confirm-payment', ConfirmPayment);
+router.get('/mine', GetMyOrders);
+router.get('/vendor', GetVendorOrders);
+router.get('/', GetAllOrders);
+router.get('/:id', GetOrderById);
+router.put('/:id', UpdateOrder);
+router.delete('/:id', DeleteOrder);
 
 module.exports = router;
